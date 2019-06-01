@@ -7,3 +7,8 @@ I am using the Spotify API for authentication and content.
 This web app will allow users to create different activities such as Travel trips, Gym session, Jogging and assign particular playlists to them. 
 
 Users will then be able to see their playlists in their spotify application.
+
+## Run the project
+
+- Go to gypsy-playlist-backend and run `node app.js`
+- Go to gypsy-playlist-frontend and run `npm start`
