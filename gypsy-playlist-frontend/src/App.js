@@ -5,10 +5,12 @@ import "./components";
 import { Home } from "./components/Home";
 import { AuthProvider } from "./auth/AuthProvider";
 import { AppContextProvider } from "./core/AppContextProvider";
-import Themes from "./themes";
+import { useTheme } from "./themes";
 
 function App() {
-  const [currentTheme, setCurrentTheme] = useState(Themes.dark);
+  // const [currentTheme, setCurrentTheme] = useState(Themes.dark);
+  const [currentTheme] = useTheme();
+
   return (
     <div className="App">
       <AppContextProvider theme={currentTheme}>

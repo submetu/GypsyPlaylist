@@ -1,10 +1,9 @@
-import DarkTheme from './dark';
-import LightTheme from './light';
+import { useState } from "react";
+import useDarkTheme from "./dark";
 
+export function useTheme() {
+  const darkTheme = useDarkTheme();
+  const [currentTheme, setCurrentTheme] = useState(darkTheme);
 
-const Themes = {
-  dark: DarkTheme,
-  light: LightTheme
+  return [currentTheme, setCurrentTheme];
 }
-
-export default Themes;
