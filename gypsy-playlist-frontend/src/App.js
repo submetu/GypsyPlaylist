@@ -4,13 +4,18 @@ import "./shared";
 import "./components";
 import { Home } from "./components/Home";
 import { AuthProvider } from "./auth/AuthProvider";
+import { AppContextProvider } from "./core/AppContextProvider";
+import Themes from "./themes";
 
 function App() {
+  const [currentTheme, setCurrentTheme] = useState(Themes.dark);
   return (
     <div className="App">
-      <AuthProvider>
-        <Home />
-      </AuthProvider>
+      <AppContextProvider theme={currentTheme}>
+        <AuthProvider>
+          <Home />
+        </AuthProvider>
+      </AppContextProvider>
     </div>
   );
 }
