@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Login } from "../components/Login";
 import { ProgressView } from "../shared/components/Progressview";
 
-const ACCESS_TOKEN = "access_token";
+export const ACCESS_TOKEN = "access_token";
 
 export function AuthProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

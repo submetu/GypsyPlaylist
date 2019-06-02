@@ -4,6 +4,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AppContext } from "../core/AppContextProvider";
 import classNames from "classnames";
+import queryString from "querystring";
 
 export function Login() {
   const [loading, setLoading] = useState(false);
@@ -20,11 +21,11 @@ export function Login() {
     })
       .then(resp => resp.json())
       .then(data => {
-        // setLoading(false);
-        // let baseURL = "https://accounts.spotify.com/authorize?";
-        // let query = queryString.stringify(data);
-        // window.location.href = baseURL + query;
-      });
+        let baseURL = "https://accounts.spotify.com/authorize?";
+        let query = queryString.stringify(data);
+        window.location.href = baseURL + query;
+      })
+      .finally(() => setLoading(false));
   }, []);
   return (
     <div className={classNames("Login", theme.background)}>
