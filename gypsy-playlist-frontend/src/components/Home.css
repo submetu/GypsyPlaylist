@@ -1,0 +1,11 @@
+.Home{
+  width: 100%;
+  height: 100%;
+  margin-top: 64px;
+  text-align: left;
+}
+.Home .MainAppBar{
+  position: fixed;
+  top:0;
+  left:0;
+}

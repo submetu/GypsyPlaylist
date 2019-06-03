@@ -27,6 +27,7 @@ export function AuthProvider(props) {
           return resp.json();
         })
         .then(data => {
+          console.log('data: ', data);
           setIsLoggedIn(true);
           console.log("Send to Home");
         })
