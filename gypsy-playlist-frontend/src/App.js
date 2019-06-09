@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import "./shared";
 import "./components";
@@ -8,7 +8,6 @@ import { AppContextProvider } from "./core/AppContextProvider";
 import { useTheme } from "./themes";
 
 function App() {
-  // const [currentTheme, setCurrentTheme] = useState(Themes.dark);
   const [currentTheme] = useTheme();
 
   return (

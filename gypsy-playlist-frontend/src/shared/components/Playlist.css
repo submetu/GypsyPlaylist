@@ -1,0 +1,36 @@
+.Playlist {
+  position: relative;
+  margin-top: 20px;
+  width: 30vw;
+  height: 40vh;
+  background: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: all var(--transitionFAST) ease-in-out;
+  flex-direction: column;
+}
+.Playlist_name {
+  font-size: var(--fontLG);
+}
+
+.Playlist_ownerName {
+  font-size: var(--fontXS);
+}
+.Playlist:hover {
+  transform: translateY(-5px);
+}
+.Playlist_background {
+  width: 100%;
+  max-height: 90%;
+  position: absolute;
+  opacity: 0.1;
+  pointer-events: none;
+}
+.Playlist:hover .Playlist_background {
+  opacity: 0.2;
+}
