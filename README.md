@@ -9,6 +9,13 @@ This web app will allow users to create different activities such as Travel trip
 Users will then be able to see their playlists in their spotify application.
 
 ## Run the project
+- Open up the terminal, and type the following commands: 
+
+```
+export CLIENT_ID={your_client_id}
+export CLIENT_SECRET={your_client_secret}
+export REDIRECT_URI=http://localhost:8888/callback
+```
 
 - Go to gypsy-playlist-backend and run `node app.js`
-- Go to gypsy-playlist-frontend and run `npm start`
+- Open up another terminal instance, navigate to gypsy-playlist-frontend and run `npm start`
