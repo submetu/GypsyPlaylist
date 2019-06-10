@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { AppContext } from "../core/AppContextProvider";
 import Button from "@material-ui/core/Button";
 import { createSpotifyService } from "../services/createSpotifyService";
@@ -6,9 +6,11 @@ import { MainAppBar } from "../shared/components/MainAppBar";
 import { Playlists } from "../shared/components/Playlists";
 import classNames from "classnames";
 import { UPDATE_PLAYLISTS } from "../core/constants";
+import { ProgressView } from "../shared/components/Progressview";
 
 export function Home() {
   const { theme, state, dispatch } = useContext(AppContext);
+  const [isPlaylistsLoading, setIsPlaylistsLoading] = useState(true);
 
   useEffect(() => {
     createSpotifyService({
@@ -19,6 +21,9 @@ export function Home() {
       },
       onError(e) {
         throw new Error(e);
+      },
+      onFinally() {
+        setIsPlaylistsLoading(false);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,7 +34,14 @@ export function Home() {
       <MainAppBar className={classNames(theme.MainAppBar, "MainAppBar")} />
       <div className="container">
         <h1 className={theme.primaryColor}> Your Playlists</h1>
-        <Playlists playlists={state.playlists} />
+        <ProgressView
+          transparent
+          className={theme.primaryColor}
+          loading={isPlaylistsLoading}
+          loadingText={"Loading Playlists..."}
+        >
+          <Playlists playlists={state.playlists} />
+        </ProgressView>
         {/* <Button
           size="large"
           variant="contained"

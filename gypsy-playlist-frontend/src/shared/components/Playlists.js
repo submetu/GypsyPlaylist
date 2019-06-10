@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
-import shortid from "shortid";
-import { Playlist } from "./Playlist";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
+import shortid from "shortid";
+import { Playlist } from "./Playlist";
 
 const useStyles = makeStyles(theme => ({
   search: {
