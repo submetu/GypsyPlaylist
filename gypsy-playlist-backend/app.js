@@ -1,28 +1,22 @@
-const express = require("express"); 
-const request = require("request"); 
+const express = require("express");
+const request = require("request");
 const querystring = require("querystring");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const shortid = require("shortid");
 
-var client_id = process.env.CLIENT_ID || ""; // Your client id
-var client_secret = process.env.CLIENT_SECRET || ""; // Your secret
-var redirect_uri = process.env.REDIRECT_URI || "http://localhost:8888/callback"; // Your redirect uri
+const SERVER_URL = "http://localhost:8888";
+const CLIENT_URL = "http://localhost:3000";
 
+const client_id = process.env.CLIENT_ID || ""; // Your client id
+const client_secret = process.env.CLIENT_SECRET || ""; // Your secret
+const redirect_uri = process.env.REDIRECT_URI || `${SERVER_URL}/callback`; // Your redirect uri
 
-var generateRandomString = function(length) {
-  var text = "";
-  var possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const GET_TOKEN_URL = "https://accounts.spotify.com/api/token";
 
-  for (var i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
-};
+const stateKey = "spotify_auth_state";
 
-var stateKey = "spotify_auth_state";
-
-var app = express();
+const app = express();
 
 app
   .use(express.static(__dirname + "/public"))
@@ -39,39 +33,29 @@ app.use(function(req, res, next) {
 });
 
 app.get("/login", function(req, res) {
-  var state = generateRandomString(16);
+  const state = shortid(16);
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = "user-read-private user-read-email";
-  // res.redirect(
-  //   307,
-  //   "https://accounts.spotify.com/authorize?" +
-  //     querystring.stringify({
-  //       response_type: "code",
-  //       client_id: client_id,
-  //       scope: scope,
-  //       redirect_uri: redirect_uri,
-  //       state: state
-  //     })
-  // );
-  // res.redirect('/nice');
-  res.json({
-    response_type: "code",
-    client_id: client_id,
-    scope: scope,
-    redirect_uri: redirect_uri,
-    state: state
-  }).end();
+  const scope = "user-read-private user-read-email";
+
+  res
+    .json({
+      response_type: "code",
+      client_id: client_id,
+      scope: scope,
+      redirect_uri: redirect_uri,
+      state: state
+    })
+    .end();
 });
 
 app.get("/callback", function(req, res) {
   // your application requests refresh and access tokens
   // after checking the state parameter
-
-  var code = req.query.code || null;
-  var state = req.query.state || null;
-  var storedState = req.cookies ? req.cookies[stateKey] : null;
+  const code = req.query.code || null;
+  const state = req.query.state || null;
+  const storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
     res.redirect(
@@ -82,8 +66,8 @@ app.get("/callback", function(req, res) {
     );
   } else {
     res.clearCookie(stateKey);
-    var authOptions = {
-      url: "https://accounts.spotify.com/api/token",
+    const authOptions = {
+      url: GET_TOKEN_URL,
       form: {
         code: code,
         redirect_uri: redirect_uri,
@@ -99,30 +83,25 @@ app.get("/callback", function(req, res) {
 
     request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
-        var access_token = body.access_token,
+        const access_token = body.access_token,
           refresh_token = body.refresh_token;
 
-        var options = {
+        const options = {
           url: "https://api.spotify.com/v1/me",
           headers: { Authorization: "Bearer " + access_token },
           json: true
         };
 
         // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          console.log(body);
-        });
-        console.log(11111111111111111111111111111111);
-        // we can also pass the token to the browser to make requests from there
-        let data = {
-            access_token: access_token,
-            refresh_token: refresh_token
-          };
-        res.redirect("http://localhost:3000?" + querystring.stringify(data));
-        // res.json({
-        //   access_token: access_token,
-        //   refresh_token: refresh_token
+        // request.get(options, function(error, response, body) {
+        //   console.log(body);
         // });
+
+        const data = {
+          access_token: access_token,
+          refresh_token: refresh_token
+        };
+        res.redirect(`${CLIENT_URL}?${querystring.stringify(data)}`);
       } else {
         res.redirect(
           "/#" +
@@ -137,9 +116,9 @@ app.get("/callback", function(req, res) {
 
 app.get("/refresh_token", function(req, res) {
   // requesting access token from refresh token
-  var refresh_token = req.query.refresh_token;
-  var authOptions = {
-    url: "https://accounts.spotify.com/api/token",
+  const refresh_token = req.query.refresh_token;
+  const authOptions = {
+    url: GET_TOKEN_URL,
     headers: {
       Authorization:
         "Basic " +
@@ -154,7 +133,7 @@ app.get("/refresh_token", function(req, res) {
 
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
-      var access_token = body.access_token;
+      const access_token = body.access_token;
       res.send({
         access_token: access_token
       });
