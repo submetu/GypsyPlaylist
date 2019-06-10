@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import shortid from "shortid";
 import { Playlist } from "./Playlist";
 import { fade } from "@material-ui/core/styles/colorManipulator";
@@ -17,8 +17,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: "300px",
-    [theme.breakpoints.up("sm")]: {
-    }
+    [theme.breakpoints.up("sm")]: {}
   },
   searchIcon: {
     width: theme.spacing(7),
@@ -43,8 +42,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export function Playlists({ playlists }) {
+export function Playlists(props) {
   const classes = useStyles();
+  const [playlists, setPlaylists] = useState(props.playlists);
+
+  useEffect(() => {
+    setPlaylists(props.playlists);
+  }, [props.playlists]);
+
+  const onChange = useCallback(
+    e => {
+      const filteredPlaylists = getFilteredPlaylists(
+        props.playlists,
+        e.target.value
+      );
+      setPlaylists(e.target.value ? filteredPlaylists : props.playlists);
+    },
+    [props.playlists]
+  );
 
   return (
     <>
@@ -53,6 +68,7 @@ export function Playlists({ playlists }) {
           <SearchIcon />
         </div>
         <InputBase
+          onChange={onChange}
           placeholder="Search Playlists…"
           classes={{
             root: classes.inputRoot,
@@ -67,4 +83,16 @@ export function Playlists({ playlists }) {
       </div>
     </>
   );
+}
+
+function getFilteredPlaylists(playlists, searchTerm) {
+  const _searchTerm = searchTerm.toLowerCase();
+  return playlists.filter(playlist => {
+    const _playlistName = playlist.name.toLowerCase();
+    const _playlistOwner = playlist.owner.display_name.toLowerCase();
+    return (
+      _playlistName.includes(_searchTerm) ||
+      _playlistOwner.includes(_searchTerm)
+    );
+  });
 }
