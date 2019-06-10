@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { AppContext } from "../core/AppContextProvider";
 import Button from "@material-ui/core/Button";
 import { createSpotifyService } from "../services/createSpotifyService";
@@ -21,7 +21,7 @@ export function Home() {
         throw new Error(e);
       }
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

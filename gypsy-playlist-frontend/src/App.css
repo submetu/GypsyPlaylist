@@ -6,6 +6,10 @@
   --transitionMEDIUM: 300ms;
 
 }
+a{
+  text-decoration: none;
+  color:inherit;
+}
 .App {
   text-align: center;
 }
@@ -26,7 +30,7 @@
   font-size: large;
 }
 .container {
-  padding: 0 20px;
+  padding: 0 60px;
   display: block;
 }
 

@@ -1,7 +1,7 @@
 .Playlist {
   position: relative;
   margin-top: 20px;
-  width: 30vw;
+  width: calc(30vw - 60px);
   height: 40vh;
   background: white;
   padding: 10px;
@@ -16,10 +16,13 @@
 }
 .Playlist_name {
   font-size: var(--fontLG);
+  text-align: center;
 }
 
 .Playlist_ownerName {
   font-size: var(--fontXS);
+  margin-top: 5px;
+  text-align: center;
 }
 .Playlist:hover {
   transform: translateY(-5px);
