@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -15,6 +15,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import { AppContext } from "../../core/AppContextProvider";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -80,6 +81,7 @@ const useStyles = makeStyles(theme => ({
 
 export function MainAppBar(props) {
   const classes = useStyles();
+  const { state } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -162,9 +164,11 @@ export function MainAppBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Gypsy Playlists
+            <a rel="noopener noreferrer" target="_blank" href={state.user.external_urls.spotify}>
+              <span className="DisplayName">{state.user.display_name}</span>
+            </a>
           </Typography>
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -175,7 +179,7 @@ export function MainAppBar(props) {
                 input: classes.inputInput
               }}
             />
-          </div>
+          </div> */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton color="inherit">

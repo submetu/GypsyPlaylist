@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Login } from "../components/Login";
 import { ProgressView } from "../shared/components/Progressview";
+import { AppContext } from "../core/AppContextProvider";
+import { UPDATE_USER } from "../core/constants";
 
 export const ACCESS_TOKEN = "access_token";
 
 export function AuthProvider(props) {
+  const { dispatch } = useContext(AppContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [ispending, setIsPending] = useState(true);
 
@@ -27,7 +30,8 @@ export function AuthProvider(props) {
           return resp.json();
         })
         .then(data => {
-          console.log('data: ', data);
+          console.log("data: ", data);
+          dispatch({ type: UPDATE_USER, payload: data });
           setIsLoggedIn(true);
           console.log("Send to Home");
         })
