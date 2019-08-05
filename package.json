@@ -1,7 +1,7 @@
 {
+  "author": "Subhan",
   "name": "gypsy-playlist-frontend",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@material-ui/core": "^4.0.1",
     "@material-ui/icons": "^4.0.1",
