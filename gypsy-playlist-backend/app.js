@@ -17,6 +17,7 @@ const GET_TOKEN_URL = "https://accounts.spotify.com/api/token";
 const stateKey = "spotify_auth_state";
 
 const app = express();
+console.log(1);
 
 app
   .use(express.static(__dirname + "/public"))
