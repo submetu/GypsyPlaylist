@@ -15,6 +15,10 @@ export function AuthProvider(props: AuthProviderProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [ispending, setIsPending] = useState(true);
 
+  function handleUnauthenticatedUser() {
+    window.localStorage.removeItem(ACCESS_TOKEN);
+    setIsLoggedIn(false);
+  }
   useEffect(() => {
     let queryParams = new URLSearchParams(window.location.search);
     let accessToken =
@@ -28,23 +32,21 @@ export function AuthProvider(props: AuthProviderProps) {
         }
       })
         .then((resp: SpotifyResponse<User>) => {
+          if (resp.status === 401) {
+            handleUnauthenticatedUser();
+          }
           if (resp.status !== 200) {
             throw new Error(String(resp.status));
           }
           return resp.json();
         })
         .then(user => {
-          console.log("User: ", user);
           dispatch({ type: UPDATE_USER, payload: user });
           setIsLoggedIn(true);
-          console.log("Send to Home");
         })
         .catch(e => {
           if (e.message === 401) {
-            window.localStorage.removeItem(ACCESS_TOKEN);
-            setIsLoggedIn(false);
-            console.log("Invalid Token");
-            console.log("Send to Login");
+            handleUnauthenticatedUser();
           }
         })
         .finally(() => {
