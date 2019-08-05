@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  createContext,
+  useMemo,
+  useCallback
+} from "react";
 import { Login } from "../components/Login";
 import { ProgressView } from "../shared/components/Progressview";
 import { AppContext } from "../core/AppContextProvider";
@@ -8,6 +15,14 @@ import { User } from "models/User";
 
 export const ACCESS_TOKEN = "access_token";
 
+type AuthContextType = {
+  logout: () => void;
+};
+const initialAuthContext = {
+  logout: () => {}
+};
+export const AuthContext = createContext(initialAuthContext);
+
 type AuthProviderProps = { children: JSX.Element };
 
 export function AuthProvider(props: AuthProviderProps) {
@@ -15,10 +30,18 @@ export function AuthProvider(props: AuthProviderProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [ispending, setIsPending] = useState(true);
 
-  function handleUnauthenticatedUser() {
+  const handleUnauthenticatedUser = useCallback(() => {
     window.localStorage.removeItem(ACCESS_TOKEN);
     setIsLoggedIn(false);
-  }
+  }, []);
+
+  const authContextValue = useMemo(
+    () => ({
+      logout: handleUnauthenticatedUser
+    }),
+    [handleUnauthenticatedUser]
+  );
+
   useEffect(() => {
     let queryParams = new URLSearchParams(window.location.search);
     let accessToken =
@@ -57,11 +80,17 @@ export function AuthProvider(props: AuthProviderProps) {
       setIsPending(false);
       console.log("Send to Login");
     }
-  }, [dispatch]);
+  }, [dispatch, handleUnauthenticatedUser]);
 
   return (
     <ProgressView loading={ispending}>
-      {isLoggedIn ? props.children : <Login />}
+      {isLoggedIn ? (
+        <AuthContext.Provider value={authContextValue}>
+          {props.children}
+        </AuthContext.Provider>
+      ) : (
+        <Login />
+      )}
     </ProgressView>
   );
 }

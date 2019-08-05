@@ -4,16 +4,14 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { AppContext } from "../../core/AppContextProvider";
+import { AuthContext } from "auth/AuthProvider";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -80,6 +78,7 @@ const useStyles = makeStyles(theme => ({
 export function MainAppBar(props: { className: string }) {
   const classes = useStyles("");
   const { state } = useContext(AppContext);
+  const { logout } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -99,6 +98,11 @@ export function MainAppBar(props: { className: string }) {
     handleMobileMenuClose();
   }
 
+  function handleLogout() {
+    handleMenuClose();
+    logout();
+  }
+
   function handleMobileMenuOpen(event: { currentTarget: any }) {
     setMobileMoreAnchorEl(event.currentTarget);
   }
@@ -111,8 +115,7 @@ export function MainAppBar(props: { className: string }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
@@ -124,22 +127,6 @@ export function MainAppBar(props: { className: string }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton color="inherit">
           <AccountCircle />
@@ -170,30 +157,8 @@ export function MainAppBar(props: { className: string }) {
               <span className="DisplayName">{state.user.display_name}</span>
             </a>
           </Typography>
-          {/* <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-            />
-          </div> */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             <IconButton
               edge="end"
               aria-owns={isMenuOpen ? "material-appbar" : undefined}
