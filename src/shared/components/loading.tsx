@@ -3,7 +3,12 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { AppContext } from "../../core/AppContextProvider";
 import classNames from "classnames";
 
-export function Loading(props) {
+type LoadingProps = {
+  transparent?: boolean;
+  className?: string;
+  loadingText?: string;
+};
+export function Loading(props: LoadingProps) {
   const { theme } = useContext(AppContext);
   return (
     <div

@@ -4,13 +4,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
@@ -79,8 +77,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export function MainAppBar(props) {
-  const classes = useStyles();
+export function MainAppBar(props: { className: string }) {
+  const classes = useStyles("");
   const { state } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -88,7 +86,7 @@ export function MainAppBar(props) {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  function handleProfileMenuOpen(event) {
+  function handleProfileMenuOpen(event: { currentTarget: any }) {
     setAnchorEl(event.currentTarget);
   }
 
@@ -101,7 +99,7 @@ export function MainAppBar(props) {
     handleMobileMenuClose();
   }
 
-  function handleMobileMenuOpen(event) {
+  function handleMobileMenuOpen(event: { currentTarget: any }) {
     setMobileMoreAnchorEl(event.currentTarget);
   }
 
@@ -164,7 +162,11 @@ export function MainAppBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            <a rel="noopener noreferrer" target="_blank" href={state.user.external_urls.spotify}>
+            <a
+              rel="noopener noreferrer"
+              target="_blank"
+              href={state.user.external_urls.spotify}
+            >
               <span className="DisplayName">{state.user.display_name}</span>
             </a>
           </Typography>

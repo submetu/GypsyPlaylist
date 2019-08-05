@@ -3,10 +3,14 @@ import { Login } from "../components/Login";
 import { ProgressView } from "../shared/components/Progressview";
 import { AppContext } from "../core/AppContextProvider";
 import { UPDATE_USER } from "../core/constants";
+import { SpotifyResponse } from "services/createSpotifyService";
+import { User } from "models/User";
 
 export const ACCESS_TOKEN = "access_token";
 
-export function AuthProvider(props) {
+type AuthProviderProps = { children: JSX.Element };
+
+export function AuthProvider(props: AuthProviderProps) {
   const { dispatch } = useContext(AppContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [ispending, setIsPending] = useState(true);
@@ -23,27 +27,27 @@ export function AuthProvider(props) {
           Authorization: `Bearer ${accessToken}`
         }
       })
-        .then(resp => {
+        .then((resp: SpotifyResponse<User>) => {
           if (resp.status !== 200) {
-            throw new Error(resp.status);
+            throw new Error(String(resp.status));
           }
           return resp.json();
         })
-        .then(data => {
-          console.log("data: ", data);
-          dispatch({ type: UPDATE_USER, payload: data });
+        .then(user => {
+          console.log("User: ", user);
+          dispatch({ type: UPDATE_USER, payload: user });
           setIsLoggedIn(true);
           console.log("Send to Home");
         })
         .catch(e => {
-          if (e.message == 401) {
+          if (e.message === 401) {
             window.localStorage.removeItem(ACCESS_TOKEN);
             setIsLoggedIn(false);
             console.log("Invalid Token");
             console.log("Send to Login");
           }
         })
-        .finally(e => {
+        .finally(() => {
           setIsPending(false);
         });
     } else {
@@ -51,7 +55,7 @@ export function AuthProvider(props) {
       setIsPending(false);
       console.log("Send to Login");
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <ProgressView loading={ispending}>

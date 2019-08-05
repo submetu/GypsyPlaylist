@@ -1,19 +1,19 @@
 import React, { useEffect, useContext, useState } from "react";
 import { AppContext } from "../core/AppContextProvider";
-import Button from "@material-ui/core/Button";
 import { createSpotifyService } from "../services/createSpotifyService";
 import { MainAppBar } from "../shared/components/MainAppBar";
 import { Playlists } from "../shared/components/Playlists";
 import classNames from "classnames";
 import { UPDATE_PLAYLISTS } from "../core/constants";
 import { ProgressView } from "../shared/components/Progressview";
+import { PlaylistsResponse } from "models/PlayListsModel";
 
 export function Home() {
   const { theme, state, dispatch } = useContext(AppContext);
   const [isPlaylistsLoading, setIsPlaylistsLoading] = useState(true);
 
   useEffect(() => {
-    createSpotifyService({
+    createSpotifyService<PlaylistsResponse>({
       url: "me/playlists",
       onSuccess(data) {
         if (!data || !data.items) return;
@@ -26,8 +26,7 @@ export function Home() {
         setIsPlaylistsLoading(false);
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={classNames("Home", theme.background)}>

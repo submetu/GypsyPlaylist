@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
 import { AppContext } from "../../core/AppContextProvider";
+import { PlaylistType } from 'models/PlayListsModel';
 
-export function Playlist({ playlist }) {
+export function Playlist({ playlist }: { playlist: PlaylistType }) {
   const { theme } = useContext(AppContext);
   return (
     <div className={classNames("Playlist", theme.secondaryBackground)}>

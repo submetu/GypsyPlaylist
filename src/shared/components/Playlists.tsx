@@ -5,6 +5,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import shortid from "shortid";
 import { Playlist } from "./Playlist";
+import { PlaylistType } from 'models/PlayListsModel';
 
 const useStyles = makeStyles(theme => ({
   search: {
@@ -42,8 +43,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export function Playlists(props) {
-  const classes = useStyles();
+export function Playlists(props: { playlists: PlaylistType[] }) {
+  const classes = useStyles("");
   const [playlists, setPlaylists] = useState(props.playlists);
 
   useEffect(() => {
@@ -85,7 +86,7 @@ export function Playlists(props) {
   );
 }
 
-function getFilteredPlaylists(playlists, searchTerm) {
+function getFilteredPlaylists(playlists: PlaylistType[], searchTerm: string) {
   const _searchTerm = searchTerm.toLowerCase();
   return playlists.filter(playlist => {
     const _playlistName = playlist.name.toLowerCase();

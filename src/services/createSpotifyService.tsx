@@ -1,13 +1,27 @@
 import { ACCESS_TOKEN } from "../auth/AuthProvider";
 
-export function createSpotifyService({
+export type SpotifyServiceType<DataType> = {
+  url: string;
+  method?: string;
+  body?: BodyInit;
+  onSuccess: (data: DataType) => void;
+  onError: (data: any) => void;
+  onFinally: () => void;
+};
+
+export type SpotifyResponse<DataType> = {
+  status: number;
+  json: () => Promise<DataType>;
+};
+
+export function createSpotifyService<DataType>({
   url,
   method,
   body,
   onSuccess,
   onError,
   onFinally
-}) {
+}: SpotifyServiceType<DataType>) {
   const baseURL = "https://api.spotify.com/v1";
   const accessToken = window.localStorage.getItem(ACCESS_TOKEN);
   if (!accessToken) {
@@ -20,15 +34,15 @@ export function createSpotifyService({
     },
     body
   })
-    .then(resp => {
+    .then((resp: SpotifyResponse<DataType>) => {
       if (resp.status !== 200) {
-        throw new Error(resp.status);
+        throw new Error(String(resp.status));
       }
       return resp.json();
     })
-    .then(data => onSuccess && onSuccess(data))
+    .then((data: DataType) => onSuccess && onSuccess(data))
     .catch(e => {
-      if (e.message == 401) {
+      if (e.message === 401) {
         return sendToLogin();
       }
       onError && onError(e);
