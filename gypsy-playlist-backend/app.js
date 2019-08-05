@@ -6,7 +6,7 @@ const cors = require("cors");
 const shortid = require("shortid");
 
 const SERVER_URL = "http://localhost:8888";
-const CLIENT_URL = "http://localhost:3000";
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
 
 const client_id = process.env.CLIENT_ID || ""; // Your client id
 const client_secret = process.env.CLIENT_SECRET || ""; // Your secret
