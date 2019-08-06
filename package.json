@@ -23,6 +23,8 @@
     "typescript": "^3.5.3"
   },
   "devDependencies": {
+    "husky": "^3.0.2",
+    "lint-staged": "^9.2.1",
     "prettier": "^1.18.2",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
@@ -33,10 +35,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test:bail": "yarn test --watchAll=false --bail",
     "eject": "react-scripts eject",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --fix --format verbose",
     "prettier": "./node_modules/prettier/bin-prettier.js --check --config ./.prettierrc 'src/**/*' --write",
-    "travis:test": "yarn lint && yarn prettier && yarn test",
+    "travis:test": "yarn lint && yarn prettier && yarn test:bail",
     "travis:build": "yarn lint && yarn prettier && yarn test && yarn build"
   },
   "browserslist": {
@@ -49,6 +52,19 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test:bail"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "yarn lint",
+      "yarn prettier",
+      "git add"
     ]
   },
   "proxy": "http://localhost:8888"

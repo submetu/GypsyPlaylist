@@ -1,10 +1,8 @@
-import classNames from 'classnames';
 import { PlaylistsResponse } from 'models/PlayListsModel';
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../core/AppContextProvider';
 import { UPDATE_PLAYLISTS } from '../core/constants';
 import { createSpotifyService } from '../services/createSpotifyService';
-import { MainAppBar } from '../shared/components/MainAppBar';
 import { Playlists } from '../shared/components/Playlists';
 import { ProgressView } from '../shared/components/Progressview';
 
@@ -31,27 +29,16 @@ export function Home() {
   }, [dispatch]);
 
   return (
-    <div className={classNames('Home', theme.background)}>
-      <MainAppBar className={classNames(theme.MainAppBar, 'MainAppBar')} />
-      <div className="container">
-        <h1 className={theme.primaryColor}> Your Playlists</h1>
-        <ProgressView
-          transparent={true}
-          className={theme.primaryColor}
-          loading={isPlaylistsLoading}
-          loadingText={'Loading Playlists...'}
-        >
-          <Playlists playlists={state.playlists} />
-        </ProgressView>
-        {/* <Button
-          size="large"
-          variant="contained"
-          color="primary"
-          onClick={onClick}
-        >
-          Browse
-        </Button> */}
-      </div>
+    <div className="container">
+      <h1 className={theme.primaryColor}> Your Playlists</h1>
+      <ProgressView
+        transparent={true}
+        className={theme.primaryColor}
+        loading={isPlaylistsLoading}
+        loadingText={'Loading Playlists...'}
+      >
+        <Playlists playlists={state.playlists} />
+      </ProgressView>
     </div>
   );
 }
