@@ -18,10 +18,10 @@ export const ACCESS_TOKEN = "access_token";
 type AuthContextType = {
   logout: () => void;
 };
-const initialAuthContext = {
+const initialAuthContext: AuthContextType = {
   logout: () => {}
 };
-export const AuthContext = createContext(initialAuthContext);
+export const AuthContext = createContext<AuthContextType>(initialAuthContext);
 
 type AuthProviderProps = { children: JSX.Element };
 
