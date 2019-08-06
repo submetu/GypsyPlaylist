@@ -37,5 +37,5 @@ export CLIENT_URL={your_frontend_url}
 
 ### Start the Frontend
 - Clone this repository
-- In the cloned directory, run `npm install && npm start`
+- In the cloned directory, run `yarn install && yarn start`
 - Make sure that the backend instance is running otherwise you won't be able to login via spotify
