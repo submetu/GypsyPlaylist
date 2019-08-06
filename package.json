@@ -36,7 +36,8 @@
     "eject": "react-scripts eject",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --fix --format verbose",
     "prettier": "./node_modules/prettier/bin-prettier.js --check --config ./.prettierrc 'src/**/*' --write",
-    "travis": "yarn lint && yarn prettier && yarn build"
+    "travis:test": "yarn lint && yarn prettier && yarn test",
+    "travis:build": "yarn lint && yarn prettier && yarn test && yarn build"
   },
   "browserslist": {
     "production": [
