@@ -35,10 +35,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test:bail": "yarn test --watchAll=false --bail",
     "eject": "react-scripts eject",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --fix --format verbose",
     "prettier": "./node_modules/prettier/bin-prettier.js --check --config ./.prettierrc 'src/**/*' --write",
-    "travis:test": "yarn lint && yarn prettier && yarn test",
+    "travis:test": "yarn lint && yarn prettier && yarn test:bail",
     "travis:build": "yarn lint && yarn prettier && yarn test && yarn build"
   },
   "browserslist": {
@@ -55,7 +56,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test:bail"
     }
   },
   "lint-staged": {
