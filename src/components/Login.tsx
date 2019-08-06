@@ -31,7 +31,6 @@ export function Login() {
         throw new Error(error);
       });
   }
-  console.log("loading: ", loading);
 
   return (
     <div className={classNames("Login", theme.background)}>
