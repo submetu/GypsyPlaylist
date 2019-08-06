@@ -61,7 +61,8 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "yarn lint",
-      "yarn prettier"
+      "yarn prettier",
+      "git add"
     ]
   },
   "proxy": "http://localhost:8888"
