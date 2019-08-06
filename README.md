@@ -1,6 +1,7 @@
 # GypsyPlaylist
 
-[![Build Status](https://travis-ci.org/submetu/GypsyPlaylist.svg?branch=master)](https://travis-ci.org/submetu/GypsyPlaylist)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE) [![Build Status](https://travis-ci.org/submetu/GypsyPlaylist.svg?branch=master)](https://travis-ci.org/submetu/GypsyPlaylist) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
+
 
 An open source project for creating playlists tailored for your activities.
 
