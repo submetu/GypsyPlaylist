@@ -1,4 +1,4 @@
-export type PlaylistsResponse = {
+export interface PlaylistsResponse {
   href: string;
   items: PlaylistType[];
   limit: number;
@@ -6,22 +6,22 @@ export type PlaylistsResponse = {
   offset: number;
   previous: number | null;
   total: number;
-};
+}
 
-type PlaylistImage = {
+interface PlaylistImage {
   url: string;
   height: number;
   width: number;
-};
-type PlaylistOwner = {
+}
+interface PlaylistOwner {
   display_name: string;
   external_urls: { spotify: string };
   href: string;
   id: string;
   type: string;
   uri: string;
-};
-export type PlaylistType = {
+}
+export interface PlaylistType {
   name: string;
   images: PlaylistImage[];
   owner: PlaylistOwner;
@@ -40,4 +40,4 @@ export type PlaylistType = {
   };
   type: string;
   uri: string;
-};
+}

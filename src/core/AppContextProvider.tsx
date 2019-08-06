@@ -1,21 +1,17 @@
-import React, {
-  createContext,
-  useReducer,
-  useMemo,
-  PropsWithChildren
-} from "react";
-import { reducer, initialState, AppStateType, AppActionType } from "./reducer";
-import { ThemeType } from "themes";
+import React, { createContext, PropsWithChildren, useMemo, useReducer } from 'react';
+import { ThemeType } from 'themes';
+import { AppActionType, AppStateType, initialState, reducer } from './reducer';
 
-type AppContextType = {
+interface AppContextType {
   state: AppStateType;
-  dispatch: React.Dispatch<AppActionType> | Function;
+  dispatch: React.Dispatch<AppActionType>;
   theme: ThemeType | any;
-};
+}
+
 const initialAppContext = {
-  state: initialState,
   dispatch: () => {},
-  theme: {}
+  state: initialState,
+  theme: {},
 };
 export const AppContext = createContext<AppContextType>(initialAppContext);
 
@@ -27,13 +23,11 @@ export function AppContextProvider(props: AppContextProviderProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = useMemo(
     () => ({
-      theme: props.theme,
+      dispatch,
       state,
-      dispatch
+      theme: props.theme,
     }),
     [props.theme, state]
   );
-  return (
-    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>;
 }

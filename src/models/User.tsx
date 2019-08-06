@@ -1,4 +1,4 @@
-export type User = {
+export interface User {
   country: string;
   display_name: string;
   email: string;
@@ -25,33 +25,33 @@ export type User = {
   product: string;
   type: string;
   uri: string;
-};
+}
 
 export const INITIAL_USER: User = {
-  country: "",
-  display_name: "",
-  email: "",
+  country: '',
+  display_name: '',
+  email: '',
   explicit_content: {
     filter_enabled: false,
-    filter_locked: false
+    filter_locked: false,
   },
   external_urls: {
-    spotify: ""
+    spotify: '',
   },
   followers: {
     href: null,
-    total: 18
+    total: 18,
   },
-  href: "",
-  id: "1",
+  href: '',
+  id: '1',
   images: [
     {
       height: null,
-      url: "",
-      width: null
-    }
+      url: '',
+      width: null,
+    },
   ],
-  product: "",
-  type: "",
-  uri: ""
+  product: '',
+  type: '',
+  uri: '',
 };

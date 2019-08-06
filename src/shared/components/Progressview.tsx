@@ -1,13 +1,13 @@
-import React from "react";
-import { Loading } from "./loading";
+import React from 'react';
+import { Loading } from './loading';
 
-type ProgressViewProps = {
+interface ProgressViewProps {
   transparent?: boolean;
   className?: string;
   loadingText?: string;
   loading: boolean;
   children: JSX.Element;
-};
+}
 export function ProgressView(props: ProgressViewProps) {
   return props.loading ? (
     <Loading

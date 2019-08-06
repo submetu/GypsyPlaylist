@@ -1,14 +1,13 @@
-:root{
+:root {
   --fontLG: 34px;
   --fontS: 16px;
   --fontXS: 12px;
   --transitionFAST: 100ms;
   --transitionMEDIUM: 300ms;
-
 }
-a{
+a {
   text-decoration: none;
-  color:inherit;
+  color: inherit;
 }
 .App {
   text-align: center;

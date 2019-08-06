@@ -1,12 +1,12 @@
-import React, { useEffect, useContext, useState } from "react";
-import { AppContext } from "../core/AppContextProvider";
-import { createSpotifyService } from "../services/createSpotifyService";
-import { MainAppBar } from "../shared/components/MainAppBar";
-import { Playlists } from "../shared/components/Playlists";
-import classNames from "classnames";
-import { UPDATE_PLAYLISTS } from "../core/constants";
-import { ProgressView } from "../shared/components/Progressview";
-import { PlaylistsResponse } from "models/PlayListsModel";
+import classNames from 'classnames';
+import { PlaylistsResponse } from 'models/PlayListsModel';
+import React, { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../core/AppContextProvider';
+import { UPDATE_PLAYLISTS } from '../core/constants';
+import { createSpotifyService } from '../services/createSpotifyService';
+import { MainAppBar } from '../shared/components/MainAppBar';
+import { Playlists } from '../shared/components/Playlists';
+import { ProgressView } from '../shared/components/Progressview';
 
 export function Home() {
   const { theme, state, dispatch } = useContext(AppContext);
@@ -14,9 +14,11 @@ export function Home() {
 
   useEffect(() => {
     createSpotifyService<PlaylistsResponse>({
-      url: "me/playlists",
+      url: 'me/playlists',
       onSuccess(data) {
-        if (!data || !data.items) return;
+        if (!data || !data.items) {
+          return;
+        }
         dispatch({ type: UPDATE_PLAYLISTS, payload: data.items });
       },
       onError(e) {
@@ -24,20 +26,20 @@ export function Home() {
       },
       onFinally() {
         setIsPlaylistsLoading(false);
-      }
+      },
     });
   }, [dispatch]);
 
   return (
-    <div className={classNames("Home", theme.background)}>
-      <MainAppBar className={classNames(theme.MainAppBar, "MainAppBar")} />
+    <div className={classNames('Home', theme.background)}>
+      <MainAppBar className={classNames(theme.MainAppBar, 'MainAppBar')} />
       <div className="container">
         <h1 className={theme.primaryColor}> Your Playlists</h1>
         <ProgressView
-          transparent
+          transparent={true}
           className={theme.primaryColor}
           loading={isPlaylistsLoading}
-          loadingText={"Loading Playlists..."}
+          loadingText={'Loading Playlists...'}
         >
           <Playlists playlists={state.playlists} />
         </ProgressView>

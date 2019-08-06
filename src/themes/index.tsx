@@ -1,14 +1,14 @@
-import { useState } from "react";
-import useDarkTheme from "./dark";
+import { useState } from 'react';
+import useDarkTheme from './dark';
 
 export type ThemeType = Record<
-  | "background"
-  | "button"
-  | "disabled"
-  | "secondaryBackground"
-  | "primaryColor"
-  | "MainAppBar"
-  | "headingColor",
+  | 'background'
+  | 'button'
+  | 'disabled'
+  | 'secondaryBackground'
+  | 'primaryColor'
+  | 'MainAppBar'
+  | 'headingColor',
   string
 >;
 

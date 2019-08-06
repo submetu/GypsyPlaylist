@@ -1,32 +1,31 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 import { ThemeType } from 'themes';
 
-const PrimaryColor = "#f50057";
-const HeadingColor = "#fff";
+const PrimaryColor = '#f50057';
+const HeadingColor = '#fff';
 
 const DarkTheme = makeStyles<ThemeType>(theme => ({
   background: {
-    backgroundColor: "rgba(0, 0, 0, 0.85)"
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
   },
   secondaryBackground: {
-    backgroundColor: "rgba(0, 0, 0, 0.38)"
+    backgroundColor: 'rgba(0, 0, 0, 0.38)',
   },
   button: {
-    backgroundColor: "#3f51b5"
+    backgroundColor: '#3f51b5',
   },
   disabled: {
-    color: "rgba(197, 197, 197, 0.52) !important",
-    backgroundColor: "rgba(0,0,0,0.2) !important"
+    color: 'rgba(197, 197, 197, 0.52) !important',
+    backgroundColor: 'rgba(0,0,0,0.2) !important',
   },
   primaryColor: {
-    color: `${PrimaryColor} !important`
+    color: `${PrimaryColor} !important`,
   },
   MainAppBar: {
-    backgroundColor: `${PrimaryColor}`
+    backgroundColor: `${PrimaryColor}`,
   },
   headingColor: {
-    color: HeadingColor
-  }
+    color: HeadingColor,
+  },
 }));
 export default DarkTheme;
-
