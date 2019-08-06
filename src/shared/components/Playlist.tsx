@@ -6,6 +6,7 @@ import { AppContext } from '../../core/AppContextProvider';
 
 export function Playlist({ playlist }: { playlist: PlaylistType }) {
   const { theme } = useContext(AppContext);
+  
   return (
     <Link to={`/playlist-editor/${playlist.id}`}>
       <div className={classNames('Playlist', theme.secondaryBackground)}>
