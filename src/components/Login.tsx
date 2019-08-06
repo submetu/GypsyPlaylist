@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Button from "@material-ui/core/Button";
 import PersonIcon from "@material-ui/icons/Person";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -9,7 +9,8 @@ import queryString from "querystring";
 export function Login() {
   const [loading, setLoading] = useState(false);
   const { theme } = useContext(AppContext);
-  const onClick = useCallback(() => {
+
+  function onClick() {
     setLoading(true);
     fetch("/login", {
       headers: {
@@ -25,8 +26,13 @@ export function Login() {
         let query = queryString.stringify(data);
         window.location.href = baseURL + query;
       })
-      .finally(() => setLoading(false));
-  }, []);
+      .catch(error => {
+        setLoading(false);
+        throw new Error(error);
+      });
+  }
+  console.log("loading: ", loading);
+
   return (
     <div className={classNames("Login", theme.background)}>
       <div className="Login_spotify">
