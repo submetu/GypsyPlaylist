@@ -1,23 +1,30 @@
 # GypsyPlaylist
 
-An open source project for creating playlists tailored for your activities
+[![Build Status](https://travis-ci.org/submetu/GypsyPlaylist.svg?branch=master)](https://travis-ci.org/submetu/GypsyPlaylist)
+
+An open source project for creating playlists tailored for your activities.
 
 This is a project in development.
 I am using the Spotify API for authentication and content.
 
+So to use this application, you need a spotify account
+
 This web app will allow users to create different activities such as Travel trips, Gym session, Jogging and assign particular playlists to them.
 
-Users will then be able to see their playlists in their spotify application.
+Playlists can be edited, removed or created with this application. (Still in development)
+
 
 ## Run the project
 
-- Open up the terminal, and type the following commands:
+### Start the backend
+- Go to https://github.com/submetu/GypsyPlaylist-backend
+- Clone the repo
+- In the cloned directory, open up the terminal, and type the following commands:
 
 ```
 export CLIENT_ID={your_client_id}
 export CLIENT_SECRET={your_client_secret}
 ```
-
 Optional:
 
 ```
@@ -25,5 +32,9 @@ export REDIRECT_URI=http://localhost:8888/callback
 export CLIENT_URL={your_frontend_url}
 ```
 
-- Go to gypsy-playlist-backend and run `node app.js`
-- Open up another terminal instance, navigate to gypsy-playlist-frontend and run `npm start`
+- Then run `npm start`
+
+### Start the Frontend
+- Clone this repository
+- In the cloned directory, run `npm install && npm start`
+- Make sure that the backend instance is running otherwise you won't be able to login via spotify
