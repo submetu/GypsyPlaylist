@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
-import Button from "@material-ui/core/Button";
-import PersonIcon from "@material-ui/icons/Person";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { AppContext } from "../core/AppContextProvider";
-import classNames from "classnames";
-import queryString from "querystring";
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import PersonIcon from '@material-ui/icons/Person';
+import classNames from 'classnames';
+import queryString from 'querystring';
+import React, { useContext, useState } from 'react';
+import { AppContext } from '../core/AppContextProvider';
 
 export function Login() {
   const [loading, setLoading] = useState(false);
@@ -12,18 +12,18 @@ export function Login() {
 
   function onClick() {
     setLoading(true);
-    fetch("/login", {
+    fetch('/login', {
+      cache: 'no-cache',
+      credentials: 'include',
       headers: {
-        Accept: "*"
+        Accept: '*',
       },
-      mode: "no-cors",
-      credentials: "include",
-      cache: "no-cache"
+      mode: 'no-cors',
     })
       .then(resp => resp.json())
       .then(data => {
-        let baseURL = "https://accounts.spotify.com/authorize?";
-        let query = queryString.stringify(data);
+        const baseURL = 'https://accounts.spotify.com/authorize?';
+        const query = queryString.stringify(data);
         window.location.href = baseURL + query;
       })
       .catch(error => {
@@ -33,7 +33,7 @@ export function Login() {
   }
 
   return (
-    <div className={classNames("Login", theme.background)}>
+    <div className={classNames('Login', theme.background)}>
       <div className="Login_spotify">
         <Button
           classes={{ disabled: theme.disabled }}
@@ -47,9 +47,7 @@ export function Login() {
           <PersonIcon />
           Login
         </Button>
-        {loading && (
-          <CircularProgress size={24} className={theme.primaryColor} />
-        )}
+        {loading && <CircularProgress size={24} className={theme.primaryColor} />}
       </div>
     </div>
   );

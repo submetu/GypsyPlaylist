@@ -1,29 +1,24 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  createContext,
-  useMemo,
-  useCallback
-} from "react";
-import { Login } from "../components/Login";
-import { ProgressView } from "../shared/components/Progressview";
-import { AppContext } from "../core/AppContextProvider";
-import { UPDATE_USER } from "../core/constants";
-import { SpotifyResponse } from "services/createSpotifyService";
-import { User } from "models/User";
+import { User } from 'models/User';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { SpotifyResponse } from 'services/createSpotifyService';
+import { Login } from '../components/Login';
+import { AppContext } from '../core/AppContextProvider';
+import { UPDATE_USER } from '../core/constants';
+import { ProgressView } from '../shared/components/Progressview';
 
-export const ACCESS_TOKEN = "access_token";
+export const ACCESS_TOKEN = 'access_token';
 
-type AuthContextType = {
+interface AuthContextType {
   logout: () => void;
-};
+}
 const initialAuthContext: AuthContextType = {
-  logout: () => {}
+  logout: () => null,
 };
 export const AuthContext = createContext<AuthContextType>(initialAuthContext);
 
-type AuthProviderProps = { children: JSX.Element };
+interface AuthProviderProps {
+  children: JSX.Element;
+}
 
 export function AuthProvider(props: AuthProviderProps) {
   const { dispatch } = useContext(AppContext);
@@ -37,22 +32,21 @@ export function AuthProvider(props: AuthProviderProps) {
 
   const authContextValue = useMemo(
     () => ({
-      logout: handleUnauthenticatedUser
+      logout: handleUnauthenticatedUser,
     }),
     [handleUnauthenticatedUser]
   );
 
   useEffect(() => {
-    let queryParams = new URLSearchParams(window.location.search);
-    let accessToken =
-      window.localStorage.getItem(ACCESS_TOKEN) ||
-      queryParams.get("access_token");
+    const queryParams = new URLSearchParams(window.location.search);
+    const accessToken =
+      window.localStorage.getItem(ACCESS_TOKEN) || queryParams.get('access_token');
     if (accessToken) {
       window.localStorage.setItem(ACCESS_TOKEN, accessToken);
-      fetch("https://api.spotify.com/v1/me", {
+      fetch('https://api.spotify.com/v1/me', {
         headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
+          Authorization: `Bearer ${accessToken}`,
+        },
       })
         .then((resp: SpotifyResponse<User>) => {
           if (resp.status === 401) {
@@ -78,16 +72,13 @@ export function AuthProvider(props: AuthProviderProps) {
     } else {
       setIsLoggedIn(false);
       setIsPending(false);
-      console.log("Send to Login");
     }
   }, [dispatch, handleUnauthenticatedUser]);
 
   return (
     <ProgressView loading={ispending}>
       {isLoggedIn ? (
-        <AuthContext.Provider value={authContextValue}>
-          {props.children}
-        </AuthContext.Provider>
+        <AuthContext.Provider value={authContextValue}>{props.children}</AuthContext.Provider>
       ) : (
         <Login />
       )}

@@ -1,2 +1,2 @@
-export const UPDATE_PLAYLISTS = "UPDATE_PLAYLISTS";
-export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_PLAYLISTS = 'UPDATE_PLAYLISTS';
+export const UPDATE_USER = 'UPDATE_USER';

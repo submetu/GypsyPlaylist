@@ -1,24 +1,24 @@
-import { UPDATE_PLAYLISTS, UPDATE_USER } from "./constants";
-import { User, INITIAL_USER } from "models/User";
 import { PlaylistType } from 'models/PlayListsModel';
+import { INITIAL_USER, User } from 'models/User';
+import { UPDATE_PLAYLISTS, UPDATE_USER } from './constants';
 
-export type AppStateType = {
+export interface AppStateType {
   playlists: PlaylistType[];
   user: User;
-};
+}
 export type AppActionType =
   | {
-      type: "UPDATE_PLAYLISTS";
+      type: 'UPDATE_PLAYLISTS';
       payload: PlaylistType[];
     }
   | {
-      type: "UPDATE_USER";
+      type: 'UPDATE_USER';
       payload: User;
     };
 
 export const initialState: AppStateType = {
   playlists: [],
-  user: INITIAL_USER
+  user: INITIAL_USER,
 };
 
 export function reducer(state: AppStateType, action: AppActionType) {
@@ -26,13 +26,12 @@ export function reducer(state: AppStateType, action: AppActionType) {
     case UPDATE_PLAYLISTS:
       return {
         ...state,
-        playlists: action.payload
+        playlists: action.payload,
       };
     case UPDATE_USER:
-      console.log(action.payload);
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
     default:
       return initialState;
