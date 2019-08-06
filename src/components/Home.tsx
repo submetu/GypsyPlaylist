@@ -32,10 +32,10 @@ export function Home() {
     <div className="container">
       <h1 className={theme.primaryColor}> Your Playlists</h1>
       <ProgressView
-        transparent
+        transparent={true}
         className={theme.primaryColor}
         loading={isPlaylistsLoading}
-        loadingText={"Loading Playlists..."}
+        loadingText={'Loading Playlists...'}
       >
         <Playlists playlists={state.playlists} />
       </ProgressView>

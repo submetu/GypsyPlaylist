@@ -1,15 +1,15 @@
-import React from "react";
-import { createBrowserHistory } from "history";
-import "./App.css";
-import "./shared";
-import "./components";
-import { Home } from "./components/Home";
-import { AuthProvider } from "./auth/AuthProvider";
-import { AppContextProvider } from "./core/AppContextProvider";
-import { useTheme } from "./themes";
-import { Router, Route } from "react-router";
-import { PlaylistEditor } from "components/PlaylistEditor";
-import { Layout } from "shared/components/Layout";
+import { PlaylistEditor } from 'components/PlaylistEditor';
+import { createBrowserHistory } from 'history';
+import React from 'react';
+import { Route, Router } from 'react-router';
+import { Layout } from 'shared/components/Layout';
+import './App.css';
+import { AuthProvider } from './auth/AuthProvider';
+import './components';
+import { Home } from './components/Home';
+import { AppContextProvider } from './core/AppContextProvider';
+import './shared';
+import { useTheme } from './themes';
 
 const history = createBrowserHistory();
 function App() {
@@ -21,7 +21,7 @@ function App() {
         <AppContextProvider theme={currentTheme}>
           <AuthProvider>
             <Layout>
-              <Route exact path="/" component={Home} />
+              <Route exact={true} path="/" component={Home} />
               <Route path="/playlist-editor/:id" component={PlaylistEditor} />
             </Layout>
           </AuthProvider>
