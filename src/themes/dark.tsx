@@ -22,7 +22,7 @@ const DarkTheme = makeStyles<ThemeType>(theme => ({
     color: `${PrimaryColor} !important`,
   },
   MainAppBar: {
-    backgroundColor: `${PrimaryColor}`,
+    backgroundColor: `${PrimaryColor} !important`
   },
   headingColor: {
     color: HeadingColor,

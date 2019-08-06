@@ -1,13 +1,4 @@
 .Home {
   width: 100%;
   height: auto;
-  margin-top: 64px;
-  text-align: left;
-  padding: 20px 0px;
-  min-height: 100%;
-}
-.Home .MainAppBar {
-  position: fixed;
-  top: 0;
-  left: 0;
 }
