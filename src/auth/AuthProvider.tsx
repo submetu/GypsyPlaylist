@@ -6,6 +6,7 @@ import { AppContext } from '../core/AppContextProvider';
 import { UPDATE_USER } from '../core/constants';
 import { ProgressView } from '../shared/components/Progressview';
 
+
 export const ACCESS_TOKEN = 'access_token';
 
 interface AuthContextType {
