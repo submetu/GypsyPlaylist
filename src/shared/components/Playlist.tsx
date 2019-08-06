@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
 import classNames from 'classnames';
-import { AppContext } from '../../core/AppContextProvider';
 import { PlaylistType } from 'models/PlayListsModel';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AppContext } from '../../core/AppContextProvider';
 
 export function Playlist({ playlist }: { playlist: PlaylistType }) {
   const { theme } = useContext(AppContext);
