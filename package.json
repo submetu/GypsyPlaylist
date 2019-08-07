@@ -23,8 +23,13 @@
     "typescript": "^3.5.3"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.0.0",
+    "@testing-library/react": "^8.0.8",
+    "@types/fetch-mock": "^7.3.1",
+    "fetch-mock": "^7.3.9",
     "husky": "^3.0.2",
     "lint-staged": "^9.2.1",
+    "node-fetch": "^2.6.0",
     "prettier": "^1.18.2",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
@@ -37,7 +42,7 @@
     "test": "react-scripts test --env=jsdom",
     "test:bail": "yarn test --watchAll=false --bail",
     "eject": "react-scripts eject",
-    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --fix --format verbose",
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx,js}' --fix --format verbose",
     "prettier": "./node_modules/prettier/bin-prettier.js --check --config ./.prettierrc 'src/**/*' --write",
     "travis:test": "yarn lint && yarn prettier && yarn test:bail",
     "travis:build": "yarn lint && yarn prettier && yarn test && yarn build"

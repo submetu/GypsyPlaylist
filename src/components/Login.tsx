@@ -36,6 +36,7 @@ export function Login() {
     <div className={classNames('Login', theme.background)}>
       <div className="Login_spotify">
         <Button
+          aria-label="Login Button"
           classes={{ disabled: theme.disabled }}
           className={theme.button}
           disabled={loading}
