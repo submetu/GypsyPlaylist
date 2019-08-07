@@ -1,8 +1,10 @@
 import React from 'react';
 import App from './App';
 import fetchMock from 'fetch-mock';
-import { render, getByLabelText, fireEvent } from 'test-utils';
+import { render, getByLabelText, fireEvent, waitForElement } from 'test-utils';
 import queryString from 'querystring';
+import { INITIAL_USER } from 'models/User';
+import { AuthProvider } from 'auth/AuthProvider';
 
 let AppContainer;
 beforeEach(() => {
@@ -26,7 +28,7 @@ it('renders the Login button', () => {
   expect(LoginButton).toBeTruthy();
 });
 
-it('redirects to the Home page with the expected access token', done => {
+it('Redirects to the Home page after receiving access token', done => {
   const dummyResponse = {
     access_token: '1',
   };
@@ -42,4 +44,29 @@ it('redirects to the Home page with the expected access token', done => {
     expect(window.location.href).toEqual(baseURL + query);
     done();
   }, 1);
+});
+
+it('Logins successfully when an access token is present', async () => {
+  global.window = Object.create(window);
+  Object.defineProperty(window, 'localStorage', {
+    value: {
+      getItem: () => '1',
+      setItem: () => '1',
+    },
+  });
+  expect(window.localStorage.getItem()).toBe('1');
+  const headers = { Authorization: `Bearer 1` };
+  const options = { headers };
+
+  fetchMock.get('https://api.spotify.com/v1/me', INITIAL_USER, options);
+  fetchMock.get('https://api.spotify.com/v1/me/playlists', []);
+
+  const { queryByText } = render(
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+
+  //Wait for Home page to be loaded
+  await waitForElement(() => queryByText(/Your Playlists/i));
 });

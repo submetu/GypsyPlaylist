@@ -4,9 +4,7 @@ import { Router } from 'react-router';
 import { createMemoryHistory } from 'history';
 import { useTheme } from '../themes';
 import { AppContextProvider } from 'core/AppContextProvider';
-import { AuthProvider } from 'auth/AuthProvider';
 import { Layout } from 'shared/components/Layout';
-import { authenticateUser } from './authenticateUser';
 
 function renderWithRouter(
   ui,
@@ -22,9 +20,7 @@ const AllTheProviders = ({ children }) => {
   const [currentTheme] = useTheme();
   return (
     <AppContextProvider theme={currentTheme}>
-      <AuthProvider>
-        <Layout>{children}</Layout>
-      </AuthProvider>
+      <Layout>{children}</Layout>
     </AppContextProvider>
   );
 };
@@ -33,4 +29,4 @@ const customRender = (ui, options) => render(ui, { wrapper: AllTheProviders, ...
 
 export * from '@testing-library/react';
 
-export { customRender as render, renderWithRouter, authenticateUser };
+export { customRender as render, renderWithRouter };
