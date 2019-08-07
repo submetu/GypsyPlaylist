@@ -1,10 +1,10 @@
+import { AppContext } from 'core/AppContextProvider';
+import { UPDATE_PLAYLISTS } from 'core/constants';
 import { PlaylistsResponse } from 'models/PlayListsModel';
 import React, { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../core/AppContextProvider';
-import { UPDATE_PLAYLISTS } from '../core/constants';
-import { createSpotifyService } from '../services/createSpotifyService';
-import { Playlists } from '../shared/components/Playlists';
-import { ProgressView } from '../shared/components/Progressview';
+import { createSpotifyService } from 'services/createSpotifyService';
+import { Playlists } from 'shared/components/Playlists';
+import { ProgressView } from 'shared/components/Progressview';
 
 export function Home() {
   const { theme, state, dispatch } = useContext(AppContext);
@@ -30,7 +30,7 @@ export function Home() {
 
   return (
     <div className="container">
-      <h1 className={theme.primaryColor}> Your Playlists</h1>
+      <h1 className={theme.primaryColor}>Your Playlists</h1>
       <ProgressView
         transparent={true}
         className={theme.primaryColor}
